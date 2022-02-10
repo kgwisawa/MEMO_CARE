@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, View ,Image } from 'react-native';
 
 class HomeScreen extends React.Component{
     constructor()
@@ -33,8 +33,12 @@ class HomeScreen extends React.Component{
  
 
         <View style = {{flex:1}}>
-        <View style = {{flex: 1,alignItems: 'center',justifyContent: 'center'}}>
-
+        <View style = {{flex: 1,alignItems: 'center',justifyContent:'flex-start'}}>
+        <View style={{flex:1,justifyContent:'flex-start'}}>
+      
+        <Image style={{marginTop:-34}} source={require('../assets/BG.png')}></Image>
+      
+      </View>
         <Text style = {{ fontSize: 15}}>API CALL</Text>
           <Text>todayCases: {todayCases}</Text>
           <Text>todayDeaths: {todayDeaths}</Text>
