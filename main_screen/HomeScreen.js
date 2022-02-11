@@ -54,7 +54,7 @@ class HomeScreen extends React.Component {
     let perRecovered = perpi(this.state.todayRecovered, sum);
     let perDeaths = perpi(this.state.todayDeaths, sum);
 
-    const image = require("../assets/BG.png");
+    const image = require("../assets/BG3.png");
     const pieactive = [
       { value: parseInt(peractive), color: "#F89B3E" },
       { value: parseInt(100 - peractive), color: "lightgray" },

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions ,Animated } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -11,6 +11,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { useState } from "react";
+
 
 
 
@@ -28,8 +29,12 @@ function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
+  const tabOffsetValue = new Animated.Value(0);
   
+
   return (
+    
     <NavigationContainer>
       <Tab.Navigator 
       screenOptions={({route}) =>({
@@ -37,10 +42,11 @@ function App() {
         tabBarInactiveTintColor:"#908F8F",
         tabBarLabelStyle:{
           fontFamily:'HAIDUO1T',
-    fontSize: 10,
-    
+    fontSize: 10
+    ,marginBottom:"-10%"
     
         }
+      
       }
       )
         
@@ -54,17 +60,25 @@ function App() {
             headerShown: false,
             tabBarIcon: ({ focused }) => (
               <Image
-                source={require("./assets/home_icon.png")}
+                source={require("./assets/home_icon3.png")}
                 resizeMode="contain"
                 style={[
                   styles.icon_bar,
                   {
-                    tintColor: focused ? "#967DEA" : "#908F8F",
+                    tintColor: focused ? "#967DEA" : "#908F8F"
                   },
+                  
                 ]}
               />
             ),
-          }}
+          }} listeners={({navigation,route}) =>({
+            tabPress: e =>{
+              Animated.spring(tabOffsetValue,{
+                toValue:0,
+                useNativeDriver:true
+              }).start()
+            }
+          })}
         />
 
         <Tab.Screen
@@ -74,7 +88,7 @@ function App() {
             headerShown: false,
             tabBarIcon: ({ focused }) => (
               <Image
-                source={require("./assets/calendar_icon.png")}
+                source={require("./assets/calendar_icon3.png")}
                 resizeMode="contain"
                 style={[
                   styles.icon_bar,
@@ -85,6 +99,14 @@ function App() {
               />
             ),
           }}
+          listeners={({navigation,route}) =>({
+            tabPress: e =>{
+              Animated.spring(tabOffsetValue,{
+                toValue:getWidth() *1,
+                useNativeDriver:true
+              }).start()
+            }
+          })}
         />
         <Tab.Screen
           name="Memo"
@@ -93,7 +115,7 @@ function App() {
             headerShown: false,
             tabBarIcon: ({ focused }) => (
               <Image
-                source={require("./assets/memo_icon.png")}
+                source={require("./assets/memo_icon3.png")}
                 resizeMode="contain"
                 style={[
                   styles.icon_bar,
@@ -104,6 +126,14 @@ function App() {
               />
             ),
           }}
+          listeners={({navigation,route}) =>({
+            tabPress: e =>{
+              Animated.spring(tabOffsetValue,{
+                toValue:getWidth()*2,
+                useNativeDriver:true
+              }).start()
+            }
+          })}
         />
         <Tab.Screen
           name="About Us"
@@ -112,7 +142,7 @@ function App() {
             headerShown: false,
             tabBarIcon: ({ focused }) => (
               <Image
-                source={require("./assets/about_icon.png")}
+                source={require("./assets/about_icon3.png")}
                 resizeMode="contain"
                 style={[
                   styles.icon_bar,
@@ -123,39 +153,49 @@ function App() {
               />
             ),
           }}
+          listeners={({navigation,route}) =>({
+            tabPress: e =>{
+              Animated.spring(tabOffsetValue,{
+                toValue:getWidth()*3,
+                useNativeDriver:true
+              }).start()
+            }
+          })}
         />
       </Tab.Navigator>
+
+      
+      <Animated.View style={{
+        width:getWidth(),
+        height:5,
+        backgroundColor:'#967DEA',
+        position:'absolute',
+        bottom:73.5,
+        
+        borderBottomLeftRadius:25,
+        borderBottomRightRadius:25,
+        transform:[
+          {translateX: tabOffsetValue }
+        ]
+
+      }}>
+
+      </Animated.View>
     </NavigationContainer>
   );
 }
 
+function getWidth(){
+  let width = Dimensions.get("window").width
+
+  width = width
+
+  return width/4
+}
 
 
 export default App;
 
-// export default function App() {
-//   return (
-//     <View style={{ flex: 8 }}>
-
-//       <View style={{ flex: 1 }}>
-//         <Image source={require("./assets/BG.png")} />
-//       </View>
-//       {/* <NavigationContainer>
-
-//           <Tab.Navigator>
-
-{
-  /* <Tab.Screen name="Home" component={HomeScreen}/>
-<Tab.Screen name="Timeline" component={TimeLineScreen}/>
-<Tab.Screen name="Memo" component={MemoScreen}/>
-<Tab.Screen name="About us" component={AboutUsSreen}/> */
-}
-// </Tab.Navigator>
-
-//     </NavigationContainer> */}
-//     </View>
-//   );
-// }
 
 const styles = StyleSheet.create({
   container: {
@@ -165,6 +205,7 @@ const styles = StyleSheet.create({
   icon_bar: {
     width: 25,
     height: 25,
+    marginBottom:"-15%"
    
   },
   txt:{
