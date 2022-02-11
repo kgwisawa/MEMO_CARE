@@ -46,9 +46,13 @@ class HomeScreen extends React.Component {
     let Recovered = addcomma(this.state.Recovered);
     let Deaths = addcomma(this.state.Deaths);
 
-    let peractive = perpi(this.state.active, this.state.totalcases);
-    let perRecovered = perpi(this.state.Recovered, this.state.totalcases);
-    let perDeaths = perpi(this.state.Deaths, this.state.totalcases);
+    let sum =
+      this.state.todayCases +
+      this.state.todayDeaths +
+      this.state.todayRecovered;
+    let peractive = perpi(this.state.todayCases, sum);
+    let perRecovered = perpi(this.state.todayRecovered, sum);
+    let perDeaths = perpi(this.state.todayDeaths, sum);
 
     const image = require("../assets/BG.png");
     const pieactive = [
@@ -123,78 +127,67 @@ class HomeScreen extends React.Component {
                 borderRadius: 25,
                 // position: 'absolute',
                 bottom: "-20%",
-                alignItems: "center",
-                justifyContent: "center",
               },
               styles.shadowProp,
             ]}
           >
-            <View style={{ justifyContent: "center" }}>
-              <View style={[styles.viewcontent, { flexDirection: "row" }]}>
+            <View style={{ flexDirection: "row", flex: 3 }}>
+
+
+              <View style={[styles.viewcontent]}>
                 <View>
-                  <Text style={styles.contenttext}>Active cases</Text>
-                  <Text style={styles.detailtxt}>
-                    {active} of total {totalcases}
-                  </Text>
-                </View>
-                <View
-                  style={{ alignItems: "center", justifyContent: "center",marginLeft:'4%' }}
-                >
                   <PieChart
                     donut
-                    innerRadius={20}
-                    radius={25}
+                    innerRadius={30}
+                    radius={40}
                     data={pieactive}
                     centerLabelComponent={() => {
                       return <Text style={styles.txtinPi}>{peractive}%</Text>;
                     }}
                   />
                 </View>
+                <View>
+                  <Text style={styles.contenttext}>New Cases</Text>
+                  <Text style={styles.detailtxt}>{todayCases}</Text>
+                </View>
               </View>
 
-              <View style={[styles.viewcontent, { flexDirection: "row" }]}>
-              <View>
-                <Text style={styles.contenttext}>Recovered</Text>
-                <Text style={styles.detailtxt}>
-                  {Recovered} of total {totalcases}
-                </Text>
-                </View>
-                <View
-                  style={{ alignItems: "center", justifyContent: "center" }}
-                >
+              <View style={[styles.viewcontent]}>
+                <View>
                   <PieChart
                     donut
-                    innerRadius={20}
-                    radius={25}
+                    innerRadius={30}
+                    radius={40}
                     data={piRecovered}
                     centerLabelComponent={() => {
                       return <Text style={styles.txtinPi}>{perRecovered}%</Text>;
                     }}
                   />
                 </View>
+                <View>
+                  <Text style={styles.contenttext}>Recovered</Text>
+                  <Text style={styles.detailtxt}>{todayRecovered}</Text>
+                </View>
               </View>
 
-              <View style={[styles.viewcontent, { flexDirection: "row" }]}>
-              <View>
-                <Text style={styles.contenttext}>Deaths</Text>
-                <Text style={styles.detailtxt}>
-                  {Deaths} of total {totalcases}
-                </Text>
-                </View>
-                <View
-                  style={{ alignItems: "center", justifyContent: "center",marginLeft:'7%' }}
-                >
-                  <PieChart
+              <View style={[styles.viewcontent]}>
+                <View>
+                  <PieChart 
                     donut
-                    innerRadius={20}
-                    radius={25}
+                    innerRadius={30}
+                    radius={40}
                     data={piDeaths}
                     centerLabelComponent={() => {
                       return <Text style={styles.txtinPi}>{perDeaths}%</Text>;
                     }}
                   />
                 </View>
+                <View>
+                  <Text style={styles.contenttext}>Deaths</Text>
+                  <Text style={styles.detailtxt}>{todayDeaths}</Text>
+                </View>
               </View>
+
             </View>
           </View>
         </View>
@@ -226,6 +219,7 @@ const styles = StyleSheet.create({
     fontFamily: "HAIDUO1T",
     color: "#000000",
     fontSize: 17,
+    marginTop: "-20%",
   },
   detailtxt: {
     fontFamily: "HAIDUO1T",
@@ -233,11 +227,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   viewcontent: {
-    height: "32%",
-    marginLeft: "10%",
+    alignItems: "center",
+    justifyContent:'center',
+    flexDirection: "column",
+    flex: 1,
+    marginTop:'-8%'
   },
   txtinPi: {
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: "HAIDUO1T",
     color: "#000000",
   },
@@ -248,5 +245,5 @@ function addcomma(x) {
 }
 
 function perpi(x, y) {
-  return ((parseFloat(x) / parseFloat(y)) * 100).toFixed(0);
+  return ((parseFloat(x) / parseFloat(y)) * 100).toFixed(1);
 }
