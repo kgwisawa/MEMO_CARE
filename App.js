@@ -20,7 +20,9 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   let [fontsLoaded] = useFonts({
-    'HAIDUO1H': require("./assets/font/HAIDUO1H.ttf")
+    'HAIDUO1H': require("./assets/font/HAIDUO1H.ttf"),
+    'HAIDUO1T': require("./assets/font/HAIDUO1T.ttf")
+    
   });
 
   if (!fontsLoaded) {
@@ -34,8 +36,10 @@ function App() {
         tabBarActiveTintColor: "#967DEA",                 
         tabBarInactiveTintColor:"#908F8F",
         tabBarLabelStyle:{
-          fontFamily:'HAIDUO1H',
+          fontFamily:'HAIDUO1T',
     fontSize: 10,
+    
+    
         }
       }
       )
@@ -102,7 +106,7 @@ function App() {
           }}
         />
         <Tab.Screen
-          name="AboutUs"
+          name="About Us"
           component={AboutUsSreen}
           options={{
             headerShown: false,
@@ -161,9 +165,10 @@ const styles = StyleSheet.create({
   icon_bar: {
     width: 25,
     height: 25,
+   
   },
   txt:{
-    fontFamily: 'HAIDUO1H',
+    fontFamily: 'HAIDUO1T',
      }
 });
 
