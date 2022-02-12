@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 import { PieChart } from "react-native-gifted-charts";
-
+import Chart from "../component/chart";
 class HomeScreen extends React.Component {
   constructor() {
     super();
@@ -107,14 +107,44 @@ class HomeScreen extends React.Component {
                   {
                     backgroundColor: "#FFFFFF",
                     width: "90%",
-                    height: 240,
+                    height: 280,
                     borderRadius: 25,
                     position: "absolute",
-                    bottom: "-35%",
+                    bottom: "-45%",
                   },
                   styles.shadowProp,
                 ]}
-              ></View>
+              >
+                <View style={{ alignItems: "center", bottom: "-40%" }}>
+                  <Chart></Chart>
+                  <View
+                    style={[
+                      {
+                        backgroundColor: "#000000",
+                        width: "95%",
+                        height: 1,
+                        borderRadius: 25,
+                        marginTop: 110,
+                      },
+                    ]}
+                  ></View>
+                  <View style={{marginLeft:'45%'}}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontFamily: "HAIDUO1T",
+                        marginTop: 10,
+                      }}
+                    >
+                       New case      Recovered
+                    </Text>
+                  </View>
+                  <View style={{marginTop:"-5%",marginRight:"7%",flexDirection:'row'}}>
+                  <View style ={{backgroundColor: "#EC6666",width: 15,height: 15,marginRight:"25%",borderRadius: 25,}}></View>
+                  <View style ={{backgroundColor: "#147AD6",width: 15,height: 15,marginRight:"-25%",borderRadius: 25,}}></View>
+                  </View>
+                </View>
+              </View>
             </ImageBackground>
           </View>
 
@@ -126,14 +156,12 @@ class HomeScreen extends React.Component {
                 height: 175,
                 borderRadius: 25,
                 // position: 'absolute',
-                bottom: "-20%",
+                bottom: "-25%",
               },
               styles.shadowProp,
             ]}
           >
             <View style={{ flexDirection: "row", flex: 3 }}>
-
-
               <View style={[styles.viewcontent]}>
                 <View>
                   <PieChart
@@ -160,7 +188,9 @@ class HomeScreen extends React.Component {
                     radius={40}
                     data={piRecovered}
                     centerLabelComponent={() => {
-                      return <Text style={styles.txtinPi}>{perRecovered}%</Text>;
+                      return (
+                        <Text style={styles.txtinPi}>{perRecovered}%</Text>
+                      );
                     }}
                   />
                 </View>
@@ -172,7 +202,7 @@ class HomeScreen extends React.Component {
 
               <View style={[styles.viewcontent]}>
                 <View>
-                  <PieChart 
+                  <PieChart
                     donut
                     innerRadius={30}
                     radius={40}
@@ -187,7 +217,6 @@ class HomeScreen extends React.Component {
                   <Text style={styles.detailtxt}>{todayDeaths}</Text>
                 </View>
               </View>
-
             </View>
           </View>
         </View>
@@ -228,10 +257,10 @@ const styles = StyleSheet.create({
   },
   viewcontent: {
     alignItems: "center",
-    justifyContent:'center',
+    justifyContent: "center",
     flexDirection: "column",
     flex: 1,
-    marginTop:'-8%'
+    marginTop: "-8%",
   },
   txtinPi: {
     fontSize: 18,
