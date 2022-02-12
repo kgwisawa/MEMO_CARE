@@ -107,7 +107,7 @@ class HomeScreen extends React.Component {
                   {
                     backgroundColor: "#FFFFFF",
                     width: "90%",
-                    height: 280,
+                    height: 255,
                     borderRadius: 25,
                     position: "absolute",
                     bottom: "-45%",

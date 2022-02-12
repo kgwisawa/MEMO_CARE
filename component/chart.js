@@ -9,6 +9,14 @@ class HomeScreen extends React.Component{
       super();
       this.state = {
         datac: {},
+        recoveries_g:[{
+          value: 0,
+          label: ""
+      }],
+        newcase_g:[{
+          value: 0,
+          label: ""
+      }]
       }
       
     }
@@ -64,8 +72,12 @@ class HomeScreen extends React.Component{
           }
       }   
 
-      global.recoveries_g=recoveriesd;
-      global.newcase_g=newcased;
+
+      this.setState({
+        recoveries_g: recoveriesd,
+        newcase_g: newcased,
+
+      });
     //   console.warn(newcased);
 }
   
@@ -73,8 +85,8 @@ class HomeScreen extends React.Component{
 
   render() {
     // console.warn(recoveries_g);
-    const recovered =recoveries_g;
-    const newcase= newcase_g;
+    const recovered =this.state.recoveries_g;
+    const newcase= this.state.newcase_g;
 //   const recovered = [{value: 2,label:'1',},
 //   {value: 10,label:'2'}];
 //   const newcase = [{value: 0,label:'1'},
